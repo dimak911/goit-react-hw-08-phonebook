@@ -9,10 +9,11 @@ export class App extends Component {
   state = {
     contacts: [],
     name: '',
+    number: '',
   };
 
-  onNameChange = evt => {
-    this.setState({ name: evt.target.value });
+  onInputChange = evt => {
+    this.setState({ [evt.target.name]: evt.target.value });
   };
 
   onFormSubmit = evt => {
@@ -20,11 +21,13 @@ export class App extends Component {
     const newName = {
       id: nanoid(),
       name: evt.target.elements.name.value,
+      number: evt.target.elements.number.value,
     };
     this.setState(prevState => {
       return {
         contacts: [...prevState.contacts, newName],
         name: '',
+        number: '',
       };
     });
   };
@@ -35,8 +38,9 @@ export class App extends Component {
         <GlobalStyle />
         <Section title="Phonebook">
           <Form
-            onNameChange={this.onNameChange}
+            onInputChange={this.onInputChange}
             name={this.state.name}
+            number={this.state.number}
             onFormSubmit={this.onFormSubmit}
           />
         </Section>
