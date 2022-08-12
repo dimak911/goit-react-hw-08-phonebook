@@ -14,7 +14,7 @@ export const ContactList = ({ contacts, deleteContact }) => (
         />
       ))
     ) : (
-      <li>No contacts added yet</li>
+      <li>No contacts</li>
     )}
   </Contacts>
 );
