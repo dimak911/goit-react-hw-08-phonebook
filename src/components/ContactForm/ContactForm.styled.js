@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const FormBox = styled.form`
   border: 1px solid white;
-  width: 200px;
+  width: 400px;
   padding: ${p => p.theme.space[4]}px;
 `;
 

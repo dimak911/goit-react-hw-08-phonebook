@@ -26,12 +26,20 @@ export class App extends Component {
       name: evt.target.elements.name.value,
       number: evt.target.elements.number.value,
     };
-    this.setState(prevState => {
-      return {
-        contacts: [...prevState.contacts, newName],
-      };
-    });
+    if (!this.hasDuplicates(newName.name)) {
+      this.setState(prevState => {
+        return {
+          contacts: [...prevState.contacts, newName],
+        };
+      });
+    } else {
+      alert(`${newName.name} is already in contacts.`);
+    }
   };
+
+  hasDuplicates(duplicate) {
+    return this.state.contacts.find(({ name }) => name === duplicate);
+  }
 
   onFilter = evt => {
     const filterValue = evt.target.value.toLowerCase();
@@ -45,6 +53,15 @@ export class App extends Component {
     this.setState({ [evt.target.name]: evt.target.value });
   };
 
+  deleteContact = evt => {
+    const contactToDeleteId = evt.target.dataset.id;
+    this.setState({
+      contacts: this.state.contacts.filter(
+        ({ id }) => id !== contactToDeleteId
+      ),
+    });
+  };
+
   render() {
     return (
       <>
@@ -54,7 +71,10 @@ export class App extends Component {
         </Section>
         <Section title="Contacts">
           <Filter onFilter={this.onFilter} />
-          <ContactList contacts={this.searchResult ?? this.state.contacts} />
+          <ContactList
+            contacts={this.searchResult ?? this.state.contacts}
+            deleteContact={this.deleteContact}
+          />
         </Section>
       </>
     );
