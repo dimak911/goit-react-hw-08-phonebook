@@ -1,10 +1,10 @@
 import { Label } from './Filter.styled';
 
-export const Filter = ({ onFilter }) => (
+export const Filter = ({ onInputChange }) => (
   <>
     <Label>
       <span>Find contacts by name</span>
-      <input onChange={onFilter} type="text" name="filter" />
+      <input onChange={onInputChange} type="text" name="filter" />
     </Label>
   </>
 );

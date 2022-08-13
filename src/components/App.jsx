@@ -17,8 +17,6 @@ export class App extends Component {
     filter: '',
   };
 
-  searchResult = null;
-
   onFormSubmit = evt => {
     evt.preventDefault();
     const newName = {
@@ -41,10 +39,10 @@ export class App extends Component {
     return this.state.contacts.find(({ name }) => name === duplicate);
   }
 
-  onFilter = evt => {
-    const filterValue = evt.target.value.toLowerCase();
-    this.onInputChange(evt);
-    this.searchResult = this.state.contacts.filter(({ name }) =>
+  getFilteredContacts = () => {
+    const filterValue = this.state.filter.toLowerCase();
+
+    return this.state.contacts.filter(({ name }) =>
       name.toLowerCase().includes(filterValue)
     );
   };
@@ -63,6 +61,8 @@ export class App extends Component {
   };
 
   render() {
+    const filteredContacts = this.getFilteredContacts();
+
     return (
       <>
         <GlobalStyle />
@@ -70,9 +70,9 @@ export class App extends Component {
           <ContactForm onFormSubmit={this.onFormSubmit} />
         </Section>
         <Section title="Contacts">
-          <Filter onFilter={this.onFilter} />
+          <Filter onInputChange={this.onInputChange} />
           <ContactList
-            contacts={this.searchResult ?? this.state.contacts}
+            contacts={filteredContacts}
             deleteContact={this.deleteContact}
           />
         </Section>
