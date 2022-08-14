@@ -1,8 +1,13 @@
 import PropTypes from 'prop-types';
 import { Component } from 'react';
+import { nanoid } from 'nanoid';
 import { Label, FormBox } from './ContactForm.styled';
 
 export class ContactForm extends Component {
+  static propTypes = {
+    handleNewContact: PropTypes.func.isRequired,
+  };
+
   state = {
     name: '',
     number: '',
@@ -12,20 +17,25 @@ export class ContactForm extends Component {
     this.setState({ [evt.target.name]: evt.target.value });
   };
 
+  onFormSubmit = evt => {
+    evt.preventDefault();
+    const newContact = {
+      id: nanoid(),
+      name: evt.target.elements.name.value,
+      number: evt.target.elements.number.value,
+    };
+
+    this.props.handleNewContact(newContact);
+    this.resetInputs();
+  };
+
   resetInputs() {
     this.setState({ name: '', number: '' });
   }
 
   render() {
-    const { onFormSubmit } = this.props;
     return (
-      <FormBox
-        onSubmit={evt => {
-          onFormSubmit(evt);
-          this.resetInputs();
-        }}
-        autoComplete="off"
-      >
+      <FormBox onSubmit={this.onFormSubmit} autoComplete="off">
         <Label>
           <span>Name</span>
           <input
@@ -55,7 +65,3 @@ export class ContactForm extends Component {
     );
   }
 }
-
-ContactForm.propTypes = {
-  onFormSubmit: PropTypes.elementType.isRequired,
-};

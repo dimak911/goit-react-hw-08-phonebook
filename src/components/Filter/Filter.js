@@ -11,5 +11,5 @@ export const Filter = ({ onInputChange }) => (
 );
 
 Filter.propTypes = {
-  onInputChange: PropTypes.elementType.isRequired,
+  onInputChange: PropTypes.func.isRequired,
 };
