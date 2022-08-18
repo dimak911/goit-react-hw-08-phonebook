@@ -11,6 +11,24 @@ export class App extends Component {
     filter: '',
   };
 
+  componentDidMount() {
+    try {
+      this.getItemsFromLocalStorage();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  componentDidUpdate() {
+    try {
+      if (this.isContactsChange) {
+        localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   handleNewContact = newContact => {
     if (!this.hasDuplicates(newContact.name)) {
       this.setState(prevState => {
@@ -47,24 +65,19 @@ export class App extends Component {
     });
   };
 
-  componentDidMount() {
-    try {
-      localStorage.getItem('contacts') &&
-        this.setState({
-          contacts: JSON.parse(localStorage.getItem('contacts')),
-        });
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  getItemsFromLocalStorage = () => {
+    localStorage.getItem('contacts') &&
+      this.setState({
+        contacts: JSON.parse(localStorage.getItem('contacts')),
+      });
+  };
 
-  componentDidUpdate() {
-    try {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  isContactsChange = () => {
+    return (
+      localStorage.getItem('contacts') &&
+      JSON.parse(localStorage.getItem('contacts')) !== this.state.contacts
+    );
+  };
 
   render() {
     const filteredContacts = this.getFilteredContacts();
