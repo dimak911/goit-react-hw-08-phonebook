@@ -12,3 +12,7 @@ export const Label = styled.label`
   gap: ${p => p.theme.space[3]}px;
   margin-bottom: ${p => p.theme.space[4]}px;
 `;
+
+export const Error = styled.p`
+  color: red;
+`;
