@@ -1,101 +1,87 @@
-import { Component } from 'react';
+import { useState, useEffect } from 'react';
 import { GlobalStyle } from './GlobalStyle';
 import { Section } from './Section/Section';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 
-export class App extends Component {
-  state = {
-    contacts: [],
-    filter: '',
-  };
+export const App = () => {
+  const [contacts, setContacts] = useState([]);
+  const [filter, setFilter] = useState('');
 
-  componentDidMount() {
+  useEffect(() => {
     try {
-      this.getItemsFromLocalStorage();
+      getItemsFromLocalStorage();
     } catch (error) {
       console.log(error);
     }
-  }
+  }, []);
 
-  componentDidUpdate() {
+  useEffect(() => {
     try {
-      if (this.isContactsChange) {
-        localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+      if (isContactsChange) {
+        localStorage.setItem('contacts', JSON.stringify(contacts));
       }
     } catch (error) {
       console.log(error);
     }
-  }
+  });
 
-  handleNewContact = newContact => {
-    if (!this.hasDuplicates(newContact.name)) {
-      this.setState(prevState => {
-        return {
-          contacts: [...prevState.contacts, newContact],
-        };
-      });
+  const handleNewContact = newContact => {
+    if (!hasDuplicates(newContact.name)) {
+      setContacts([...contacts, newContact]);
     } else {
       alert(`${newContact.name} is already in contacts.`);
     }
   };
 
-  hasDuplicates(duplicate) {
-    return this.state.contacts.find(({ name }) => name === duplicate);
-  }
+  const hasDuplicates = duplicate => {
+    return contacts.find(({ name }) => name === duplicate);
+  };
 
-  getFilteredContacts = () => {
-    const filterValue = this.state.filter.toLowerCase();
+  const getFilteredContacts = () => {
+    const filterValue = filter.toLowerCase();
 
-    return this.state.contacts.filter(({ name }) =>
+    return contacts.filter(({ name }) =>
       name.toLowerCase().includes(filterValue)
     );
   };
 
-  onInputChange = evt => {
-    this.setState({ [evt.target.name]: evt.target.value });
+  const onInputChange = evt => {
+    setFilter(evt.target.value);
   };
 
-  deleteContact = contactIdToDelete => {
-    this.setState({
-      contacts: this.state.contacts.filter(
-        ({ id }) => id !== contactIdToDelete
-      ),
-    });
+  const deleteContact = contactIdToDelete => {
+    setContacts(contacts.filter(({ id }) => id !== contactIdToDelete));
   };
 
-  getItemsFromLocalStorage = () => {
+  const getItemsFromLocalStorage = () => {
     localStorage.getItem('contacts') &&
-      this.setState({
-        contacts: JSON.parse(localStorage.getItem('contacts')),
-      });
+      setContacts(JSON.parse(localStorage.getItem('contacts')));
   };
 
-  isContactsChange = () => {
+  const isContactsChange = () => {
     return (
       localStorage.getItem('contacts') &&
-      JSON.parse(localStorage.getItem('contacts')) !== this.state.contacts
+      JSON.parse(localStorage.getItem('contacts')) !== contacts
     );
   };
 
-  render() {
-    const filteredContacts = this.getFilteredContacts();
+  const filteredContacts = getFilteredContacts();
 
-    return (
-      <>
-        <GlobalStyle />
-        <Section title="Phonebook">
-          <ContactForm handleNewContact={this.handleNewContact} />
-        </Section>
-        <Section title="Contacts">
-          <Filter onInputChange={this.onInputChange} />
-          <ContactList
-            contacts={filteredContacts}
-            deleteContact={this.deleteContact}
-          />
-        </Section>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <GlobalStyle />
+      <Section title="Phonebook">
+        <ContactForm handleNewContact={handleNewContact} />
+      </Section>
+      <Section title="Contacts">
+        <Filter onInputChange={onInputChange} />
+        <ContactList
+          contacts={filteredContacts}
+          deleteContact={deleteContact}
+        />
+      </Section>
+    </>
+  );
+};
