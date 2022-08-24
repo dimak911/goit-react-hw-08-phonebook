@@ -3,8 +3,6 @@ import { nanoid } from 'nanoid';
 import { useForm } from 'react-hook-form';
 import { Label, FormBox, Error } from './ContactForm.styled';
 
-let render = 0;
-
 export const ContactForm = ({ handleNewContact }) => {
   const {
     register,
@@ -31,13 +29,8 @@ export const ContactForm = ({ handleNewContact }) => {
     resetField('number');
   };
 
-  render++;
-
   return (
     <FormBox onSubmit={handleSubmit(onFormSubmit)} autoComplete="off">
-      <span>
-        Render: <button>{render}</button>
-      </span>
       <Label>
         <span>Name</span>
         <input
