@@ -14,7 +14,7 @@ export const ContactForm = ({ handleNewContact }) => {
     defaultValues: { name: '', number: '' },
   });
 
-  const nameValue = watch('name');
+  const nameValue = watch('name'); //f
   const numberValue = watch('number');
 
   const onFormSubmit = () => {
