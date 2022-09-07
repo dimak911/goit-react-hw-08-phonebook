@@ -1,18 +1,25 @@
-import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  addContact,
+  removeContact,
+  selectContactsItems,
+  selectContactsFilter,
+  addFilter,
+} from './AppSlice';
 import { GlobalStyle } from './GlobalStyle';
 import { Section } from './Section/Section';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
-import { useLocalStorage } from '../hooks/useLocalStorage';
 
 export const App = () => {
-  const [contacts, setContacts] = useLocalStorage('contacts', []);
-  const [filter, setFilter] = useState(() => '');
+  const contacts = useSelector(selectContactsItems);
+  const filter = useSelector(selectContactsFilter);
+  const dispatch = useDispatch();
 
   const handleNewContact = newContact => {
     if (!hasDuplicates(newContact.name)) {
-      setContacts([...contacts, newContact]);
+      dispatch(addContact(newContact));
     } else {
       alert(`${newContact.name} is already in contacts.`);
     }
@@ -31,11 +38,11 @@ export const App = () => {
   };
 
   const onInputChange = evt => {
-    setFilter(evt.target.value);
+    dispatch(addFilter(evt.target.value));
   };
 
   const deleteContact = contactIdToDelete => {
-    setContacts(contacts.filter(({ id }) => id !== contactIdToDelete));
+    dispatch(removeContact(contactIdToDelete));
   };
 
   return (
