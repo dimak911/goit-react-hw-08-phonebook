@@ -22,7 +22,7 @@ export const phonebookSlice = createSlice({
       );
     },
     addFilter: (state, action) => {
-      state.contacts.filter = action.payload;
+      state.contacts.filter = action.payload.toLowerCase();
     },
   },
 });

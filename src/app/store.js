@@ -8,7 +8,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import { persistedReducer } from '../components/AppSlice';
+import { persistedReducer } from '../redux/AppSlice';
 
 export const store = configureStore({
   reducer: {

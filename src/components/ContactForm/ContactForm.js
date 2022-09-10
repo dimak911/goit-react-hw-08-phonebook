@@ -1,9 +1,12 @@
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
 import { useForm } from 'react-hook-form';
 import { Label, FormBox, Error } from './ContactForm.styled';
+import { addContact, selectContactsItems } from '../../redux/AppSlice';
 
-export const ContactForm = ({ handleNewContact }) => {
+export const ContactForm = () => {
+  const contacts = useSelector(selectContactsItems);
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -13,9 +16,20 @@ export const ContactForm = ({ handleNewContact }) => {
   } = useForm({
     defaultValues: { name: '', number: '' },
   });
-
   const nameValue = watch('name');
   const numberValue = watch('number');
+
+  const handleNewContact = newContact => {
+    if (!hasDuplicates(newContact.name)) {
+      dispatch(addContact(newContact));
+    } else {
+      alert(`${newContact.name} is already in contacts.`);
+    }
+  };
+
+  const hasDuplicates = duplicate => {
+    return contacts.find(({ name }) => name === duplicate);
+  };
 
   const onFormSubmit = () => {
     const newContact = {
@@ -70,8 +84,4 @@ export const ContactForm = ({ handleNewContact }) => {
       <button type="submit">Add contact</button>
     </FormBox>
   );
-};
-
-ContactForm.propTypes = {
-  handleNewContact: PropTypes.func.isRequired,
 };
