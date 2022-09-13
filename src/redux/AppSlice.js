@@ -1,6 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 
 const initialState = {
   contacts: {
@@ -27,15 +25,7 @@ export const phonebookSlice = createSlice({
   },
 });
 
-const persistConfig = {
-  key: 'root',
-  storage,
-  whitelist: ['contacts'],
-};
-export const persistedReducer = persistReducer(
-  persistConfig,
-  phonebookSlice.reducer
-);
+export const phonebookReducer = phonebookSlice.reducer;
 
 export const { addContact, removeContact, addFilter } = phonebookSlice.actions;
 
