@@ -13,14 +13,7 @@ import { toast } from 'react-toastify';
 export const ContactListItem = ({ id, name, number }) => {
   const [deleteContact, { isSuccess, isLoading, isError }] =
     useDeleteContactByIdMutation();
-  const [
-    editContact,
-    {
-      isSuccess: isEditSuccess,
-      isLoading: isEditLoading,
-      isError: isEditError,
-    },
-  ] = useEditContactMutation();
+  const [editContact] = useEditContactMutation();
 
   useEffect(() => {
     if (isSuccess) {
