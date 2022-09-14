@@ -1,16 +1,12 @@
 import { useSelector } from 'react-redux';
 import { ContactListItem } from './components/ContactListItem';
-import { Contacts } from './ContactList.styled';
-// import { useState } from 'react';
+import { Contacts, Wrapper } from './ContactList.styled';
 import { selectContactsFilter } from 'redux/AppSlice';
 import { useGetContactsQuery } from 'services/contactsApi';
 import { Audio } from 'react-loader-spinner';
 
 export const ContactList = () => {
   const { data: contacts, isFetching } = useGetContactsQuery();
-  console.log(contacts);
-  // const [filter, setFilter] = useState([]);
-  // const contacts = useSelector(selectContactsItems);
   const filter = useSelector(selectContactsFilter);
   const filteredContacts = contacts?.filter(({ name }) =>
     name.toLowerCase().includes(filter)
@@ -19,14 +15,15 @@ export const ContactList = () => {
   return (
     <Contacts>
       {isFetching && (
-        <Audio
-          height="80"
-          width="80"
-          radius="9"
-          color="green"
-          ariaLabel="loading"
-          wrapperStyle
-        />
+        <Wrapper>
+          <Audio
+            width="70"
+            height="70"
+            color="#61dafb"
+            radius="9"
+            ariaLabel="loading"
+          />
+        </Wrapper>
       )}
       {filteredContacts?.length ? (
         filteredContacts.map(({ id, name, number }) => (

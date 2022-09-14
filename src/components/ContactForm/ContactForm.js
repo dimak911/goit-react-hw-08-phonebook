@@ -1,12 +1,17 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { nanoid } from 'nanoid';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { Label, FormBox, Error } from './ContactForm.styled';
-import { addContact, selectContactsItems } from '../../redux/AppSlice';
+import {
+  useCreateContactMutation,
+  useGetContactsQuery,
+} from 'services/contactsApi';
+import { toast } from 'react-toastify';
+import { Audio } from 'react-loader-spinner';
+import { Label, FormBox, Error, Wrapper } from './ContactForm.styled';
 
 export const ContactForm = () => {
-  const contacts = useSelector(selectContactsItems);
-  const dispatch = useDispatch();
+  const { data: contacts } = useGetContactsQuery();
+  const [createContact, { isLoading, isSuccess, isError }] =
+    useCreateContactMutation();
   const {
     register,
     handleSubmit,
@@ -21,9 +26,11 @@ export const ContactForm = () => {
 
   const handleNewContact = newContact => {
     if (!hasDuplicates(newContact.name)) {
-      dispatch(addContact(newContact));
+      createContact(newContact);
+      resetField('name');
+      resetField('number');
     } else {
-      alert(`${newContact.name} is already in contacts.`);
+      toast.warn(`${newContact.name} is already in contacts.`);
     }
   };
 
@@ -33,18 +40,30 @@ export const ContactForm = () => {
 
   const onFormSubmit = () => {
     const newContact = {
-      id: nanoid(),
       name: nameValue,
       number: numberValue,
     };
 
     handleNewContact(newContact);
-    resetField('name');
-    resetField('number');
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success('Contact added');
+    }
+
+    if (isError) {
+      toast.error('Oops!! Something went wrong!');
+    }
+  }, [isSuccess, isError]);
 
   return (
     <FormBox onSubmit={handleSubmit(onFormSubmit)} autoComplete="off">
+      {isLoading && (
+        <Wrapper>
+          <Audio />
+        </Wrapper>
+      )}
       <Label>
         <span>Name</span>
         <input

@@ -1,3 +1,5 @@
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
 import { GlobalStyle } from './GlobalStyle';
 import { Section } from './Section/Section';
 import { ContactForm } from './ContactForm/ContactForm';
@@ -15,6 +17,8 @@ export const App = () => {
         <Filter />
         <ContactList />
       </Section>
+      <GlobalStyle />
+      <ToastContainer autoClose={2000} />
     </>
   );
 };
