@@ -6,14 +6,14 @@ import { Contact, Btn } from './ContactListItem.styled';
 import { Box } from 'components/Box';
 import {
   useDeleteContactByIdMutation,
-  useEditContactMutation,
+  // useEditContactMutation,
 } from 'services/contactsApi';
 import { toast } from 'react-toastify';
 
-export const ContactListItem = ({ id, name, number }) => {
+export const ContactListItem = ({ id, name, number, openModal }) => {
   const [deleteContact, { isSuccess, isLoading, isError }] =
     useDeleteContactByIdMutation();
-  const [editContact] = useEditContactMutation();
+  // const [editContact] = useEditContactMutation();
 
   useEffect(() => {
     if (isSuccess) {
@@ -32,7 +32,7 @@ export const ContactListItem = ({ id, name, number }) => {
           {name}: {number}
         </Contact>
         <Box display="flex" gridGap="10px">
-          <Btn type="button" onClick={() => editContact(id)}>
+          <Btn type="button" onClick={openModal}>
             <FaRegEdit color="blue" />
           </Btn>
           <Btn
@@ -65,4 +65,5 @@ ContactListItem.propType = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   number: PropTypes.string.isRequired,
+  openModal: PropTypes.func.isRequired,
 };
