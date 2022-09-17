@@ -61,7 +61,7 @@ export const ContactForm = () => {
     <FormBox onSubmit={handleSubmit(onFormSubmit)} autoComplete="off">
       {isLoading && (
         <Wrapper>
-          <Audio />
+          <Audio color="#61dafb" />
         </Wrapper>
       )}
       <Label>

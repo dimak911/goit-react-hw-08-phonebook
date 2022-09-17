@@ -4,16 +4,12 @@ import { Oval } from 'react-loader-spinner';
 import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
 import { Contact, Btn } from './ContactListItem.styled';
 import { Box } from 'components/Box';
-import {
-  useDeleteContactByIdMutation,
-  // useEditContactMutation,
-} from 'services/contactsApi';
+import { useDeleteContactByIdMutation } from 'services/contactsApi';
 import { toast } from 'react-toastify';
 
 export const ContactListItem = ({ id, name, number, openModal }) => {
   const [deleteContact, { isSuccess, isLoading, isError }] =
     useDeleteContactByIdMutation();
-  // const [editContact] = useEditContactMutation();
 
   useEffect(() => {
     if (isSuccess) {
@@ -32,7 +28,12 @@ export const ContactListItem = ({ id, name, number, openModal }) => {
           {name}: {number}
         </Contact>
         <Box display="flex" gridGap="10px">
-          <Btn type="button" onClick={openModal}>
+          <Btn
+            type="button"
+            onClick={() => {
+              openModal(id);
+            }}
+          >
             <FaRegEdit color="blue" />
           </Btn>
           <Btn

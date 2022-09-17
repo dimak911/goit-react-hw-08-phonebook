@@ -20,10 +20,12 @@ export const ContactList = () => {
   const openModal = contactId => {
     setIsModalOpen(true);
     setEditContactId(contactId);
+    window.document.body.style.overflow = 'hidden';
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
+    window.document.body.style.overflow = 'unset';
   };
 
   return (
@@ -56,7 +58,7 @@ export const ContactList = () => {
       </Contacts>
       {isModalOpen && (
         <Modal closeModal={closeModal}>
-          <EditContact id={editContactId} />
+          <EditContact id={editContactId} closeModal={closeModal} />
         </Modal>
       )}
     </>
