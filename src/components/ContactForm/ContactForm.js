@@ -6,6 +6,7 @@ import {
 } from 'services/contactsApi';
 import { toast } from 'react-toastify';
 import { Audio } from 'react-loader-spinner';
+import { Button } from '@mui/material';
 import { Label, FormBox, Error, Wrapper } from './ContactForm.styled';
 
 export const ContactForm = () => {
@@ -100,7 +101,9 @@ export const ContactForm = () => {
         />
         {errors.number?.message && <Error>{errors.number?.message}</Error>}
       </Label>
-      <button type="submit">Add contact</button>
+      <Button type="submit" variant="contained">
+        Add contact
+      </Button>
     </FormBox>
   );
 };
