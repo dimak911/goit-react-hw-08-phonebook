@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Oval } from 'react-loader-spinner';
-import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import EditIcon from '@mui/icons-material/Edit';
 import { Contact, Btn } from './ContactListItem.styled';
 import { Box } from 'components/Box';
 import { useDeleteContactByIdMutation } from 'services/contactsApi';
@@ -34,7 +35,7 @@ export const ContactListItem = ({ id, name, number, openModal }) => {
               openModal(id);
             }}
           >
-            <FaRegEdit color="blue" />
+            <EditIcon fontSize="small" style={{ color: 'blue' }} />
           </Btn>
           <Btn
             type="button"
@@ -53,7 +54,7 @@ export const ContactListItem = ({ id, name, number, openModal }) => {
                 strokeWidthSecondary={10}
               />
             ) : (
-              <FaRegTrashAlt color="red" />
+              <DeleteForeverIcon fontSize="small" style={{ color: 'red' }} />
             )}
           </Btn>
         </Box>
