@@ -1,5 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { combineReducers } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { phonebookReducer } from 'redux/AppSlice';
 import { contactsApi } from 'services/contactsApi';
 

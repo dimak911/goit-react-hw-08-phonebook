@@ -1,24 +1,24 @@
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
-import { GlobalStyle } from './GlobalStyle';
-import { Section } from './Section/Section';
-import { ContactForm } from './ContactForm/ContactForm';
-import { ContactList } from './ContactList/ContactList';
-import { Filter } from './Filter/Filter';
+import { lazy } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { SharedLayout } from './SharedLayout/SharedLayout';
+
+const HomePage = lazy(() => import('pages/HomePage.js'));
+const LoginPage = lazy(() => import('pages/LoginPage.js'));
+const RegistrationPage = lazy(() => import('pages/RegistrationPage.js'));
+const ContactsPage = lazy(() => import('pages/ContactsPage.js'));
 
 export const App = () => {
   return (
     <>
-      <GlobalStyle />
-      <Section title="Phonebook">
-        <ContactForm />
-      </Section>
-      <Section title="Contacts">
-        <Filter />
-        <ContactList />
-      </Section>
-      <GlobalStyle />
-      <ToastContainer autoClose={2000} />
+      <Routes>
+        <Route path="/" element={<SharedLayout />}>
+          <Route index element={<HomePage />}></Route>
+          <Route path="login" element={<LoginPage />}></Route>
+          <Route path="registration" element={<RegistrationPage />}></Route>
+          <Route path="contacts" element={<ContactsPage />}></Route>
+          <Route path="*" element={<Navigate to="/" replace />}></Route>
+        </Route>
+      </Routes>
     </>
   );
 };
