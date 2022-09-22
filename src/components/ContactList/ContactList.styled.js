@@ -6,7 +6,7 @@ export const Contacts = styled.ul`
   flex-direction: column;
   justify-content: center;
   gap: 10px;
-  border: 1px solid white;
+  border: 1px solid black;
   width: 400px;
   min-height: 100px;
   padding: ${p => p.theme.space[4]}px;

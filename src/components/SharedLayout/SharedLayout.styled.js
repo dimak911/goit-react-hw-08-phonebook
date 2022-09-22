@@ -17,20 +17,3 @@ export const Link = styled(NavLink)`
     color: #61dafb;
   }
 `;
-
-export const Header = styled.nav`
-  display: flex;
-  align-items: center;
-  height: 60px;
-  padding: 0 10px;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
-  box-shadow: 0px 5px 5px black;
-  background-color: #282c34;
-`;
-
-export const Container = styled.div`
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 15px;
-`;

@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 export const FormBox = styled.form`
   position: relative;
-  border: 1px solid white;
+  border: 1px solid black;
   width: 400px;
   padding: ${p => p.theme.space[4]}px;
 `;
