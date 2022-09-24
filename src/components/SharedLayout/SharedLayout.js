@@ -15,13 +15,15 @@ export const SharedLayout = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Container maxWidth="lg">
-          <Toolbar sx={{ justifyContent: 'center' }}>
-            <Link to="/" end>
-              Home
-            </Link>
-            <Link to="/login">Login</Link>
-            <Link to="/registration">Registration</Link>
-            <Link to="/contacts">Contacts</Link>
+          <Toolbar sx={{ justifyContent: 'space-between' }}>
+            <div>
+              <Link to="/" end>
+                Home
+              </Link>
+              <Link to="/login">Login</Link>
+              <Link to="/register">Registration</Link>
+              <Link to="/contacts">Contacts</Link>
+            </div>
             <UserMenu />
           </Toolbar>
         </Container>

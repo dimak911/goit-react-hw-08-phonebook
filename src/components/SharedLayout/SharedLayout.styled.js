@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 
 export const Link = styled(NavLink)`
   text-decoration: none;
-  padding: 20px;
+  padding: 15px;
   color: #ffffff;
   transition: color 0.2s ease-in-out;
   &:hover {

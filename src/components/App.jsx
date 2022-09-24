@@ -4,7 +4,7 @@ import { SharedLayout } from './SharedLayout/SharedLayout';
 
 const HomePage = lazy(() => import('pages/HomePage'));
 const LoginPage = lazy(() => import('pages/LoginPage'));
-const RegistrationPage = lazy(() => import('pages/RegistrationPage'));
+const RegisterPage = lazy(() => import('pages/RegisterPage'));
 const ContactsPage = lazy(() => import('pages/ContactsPage'));
 
 export const App = () => {
@@ -14,7 +14,7 @@ export const App = () => {
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<HomePage />} />
           <Route path="login" element={<LoginPage />} />
-          <Route path="registration" element={<RegistrationPage />} />
+          <Route path="register" element={<RegisterPage />} />
           <Route path="contacts" element={<ContactsPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
