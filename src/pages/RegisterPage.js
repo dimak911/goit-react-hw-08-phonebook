@@ -5,9 +5,12 @@ import { Link } from 'react-router-dom';
 import { useCreateNewUserMutation } from 'services/contactsApi';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
+import { addUserData } from 'redux/AuthSlice';
+import { useDispatch } from 'react-redux';
 
 const RegistrationPage = () => {
-  const [createUser, { isSuccess, isError }] = useCreateNewUserMutation();
+  const [createUser, { data, isSuccess, isError }] = useCreateNewUserMutation();
+  const dispatch = useDispatch();
   const {
     handleSubmit,
     touched,
@@ -45,12 +48,13 @@ const RegistrationPage = () => {
 
     if (isSuccess) {
       toast.success('User created');
+      dispatch(addUserData(data));
     }
 
     if (isError) {
       toast.error('Something went wrong. Try again.');
     }
-  }, [isError, isSuccess, setSubmitting]);
+  }, [data, dispatch, isError, isSuccess, setSubmitting]);
 
   return (
     <Box

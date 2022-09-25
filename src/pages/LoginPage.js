@@ -5,9 +5,12 @@ import { Link } from 'react-router-dom';
 import { useLoginMutation } from 'services/contactsApi';
 import { toast } from 'react-toastify';
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { addUserData } from 'redux/AuthSlice';
 
 const LoginPage = () => {
-  const [login, { isSuccess, isError }] = useLoginMutation();
+  const [login, { data, isSuccess, isError }] = useLoginMutation();
+  const dispatch = useDispatch();
   const {
     handleSubmit,
     touched,
@@ -42,12 +45,13 @@ const LoginPage = () => {
 
     if (isSuccess) {
       toast.success('Login is successful');
+      dispatch(addUserData(data));
     }
 
     if (isError) {
       toast.error('Something went wrong. Try again.');
     }
-  }, [isError, isSuccess, setSubmitting]);
+  }, [data, dispatch, isError, isSuccess, setSubmitting]);
 
   return (
     <>
