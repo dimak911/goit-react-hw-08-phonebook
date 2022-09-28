@@ -10,16 +10,16 @@ import { Contacts, Wrapper } from './ContactList.styled';
 
 export const ContactList = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editContactId, setEditContactId] = useState(null);
+  const [contactData, setContactData] = useState(null);
   const { data: contacts, isFetching } = useGetContactsQuery();
   const filter = useSelector(selectContactsFilter);
   const filteredContacts = contacts?.filter(({ name }) =>
     name.toLowerCase().includes(filter)
   );
 
-  const openModal = contactId => {
+  const openModal = data => {
     setIsModalOpen(true);
-    setEditContactId(contactId);
+    setContactData(data);
     window.document.body.style.overflow = 'hidden';
   };
 
@@ -49,7 +49,7 @@ export const ContactList = () => {
               id={id}
               name={name}
               number={number}
-              openModal={openModal}
+              openModal={() => openModal({ id, name, number })}
             />
           ))
         ) : (
@@ -58,7 +58,7 @@ export const ContactList = () => {
       </Contacts>
       {isModalOpen && (
         <Modal closeModal={closeModal}>
-          <EditContact id={editContactId} closeModal={closeModal} />
+          <EditContact contactData={contactData} closeModal={closeModal} />
         </Modal>
       )}
     </>

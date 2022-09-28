@@ -9,6 +9,7 @@ import { Link } from './SharedLayout.styled';
 import { GlobalStyle } from 'components/GlobalStyle';
 import Container from '@mui/material/Container';
 import { UserMenu } from 'components/UserMenu/UserMenu';
+import { AuthNav } from 'components/AuthNav/AuthNav';
 
 export const SharedLayout = () => {
   return (
@@ -20,9 +21,8 @@ export const SharedLayout = () => {
               <Link to="/" end>
                 Home
               </Link>
-              <Link to="/login">Login</Link>
-              <Link to="/register">Registration</Link>
               <Link to="/contacts">Contacts</Link>
+              <AuthNav />
             </div>
             <UserMenu />
           </Toolbar>

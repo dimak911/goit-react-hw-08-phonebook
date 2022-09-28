@@ -49,11 +49,14 @@ export const contactsApi = createApi({
       invalidatesTags: ['Contacts'],
     }),
     editContact: builder.mutation({
-      query: data => ({
-        url: `/contacts/${data.id}`,
-        method: 'PATCH',
-        body: data,
-      }),
+      query: ([id, data]) => {
+        console.log('data', data);
+        return {
+          url: `/contacts/${id}`,
+          method: 'PATCH',
+          body: data,
+        };
+      },
       invalidatesTags: ['Contacts'],
     }),
     deleteContactById: builder.mutation({

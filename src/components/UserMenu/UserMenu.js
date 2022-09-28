@@ -8,7 +8,7 @@ export const UserMenu = () => {
   const dispatch = useDispatch();
   return (
     <Box display="flex" gridGap="10px" alignItems="center">
-      <span>{user.name}</span>
+      {user?.name && <span>Welcome, {user.name}</span>}
       <Button
         variant="contained"
         color="secondary"
