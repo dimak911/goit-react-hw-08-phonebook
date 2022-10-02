@@ -30,6 +30,3 @@ export const authSlice = createSlice({
 export const authReducer = authSlice.reducer;
 
 export const { addUserData, removeUserData } = authSlice.actions;
-
-export const selectToken = state => state.auth.token;
-export const selectUser = state => state.auth.user;

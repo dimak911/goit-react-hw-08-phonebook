@@ -6,7 +6,7 @@ import { useLoginMutation } from 'services/contactsApi';
 import { toast } from 'react-toastify';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { addUserData } from 'redux/AuthSlice';
+import { addUserData } from 'redux/auth/auth-slice';
 
 const LoginPage = () => {
   const [login, { data, isSuccess, isError }] = useLoginMutation();

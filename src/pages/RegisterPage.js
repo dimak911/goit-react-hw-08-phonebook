@@ -2,14 +2,14 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Box, Button, Container, TextField, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { useCreateNewUserMutation } from 'services/contactsApi';
+import { useRegisterMutation } from 'services/contactsApi';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { addUserData } from 'redux/AuthSlice';
+import { addUserData } from 'redux/auth/auth-slice';
 import { useDispatch } from 'react-redux';
 
 const RegistrationPage = () => {
-  const [createUser, { data, isSuccess, isError }] = useCreateNewUserMutation();
+  const [registerUser, { data, isSuccess, isError }] = useRegisterMutation();
   const dispatch = useDispatch();
   const {
     handleSubmit,
@@ -35,7 +35,7 @@ const RegistrationPage = () => {
       password: Yup.string().max(255).required('Password is required'),
     }),
     onSubmit: ({ name, email, password }) => {
-      createUser({
+      registerUser({
         name,
         email,
         password,
