@@ -22,7 +22,7 @@ export const contactsApi = createApi({
         method: 'POST',
         body: data,
       }),
-      providesTags: ['User'],
+      invalidatesTags: ['User', 'Contacts'],
     }),
     login: builder.mutation({
       query: data => ({
@@ -30,20 +30,17 @@ export const contactsApi = createApi({
         method: 'POST',
         body: data,
       }),
-      providesTags: ['User'],
+      invalidatesTags: ['User', 'Contacts'],
     }),
     logout: builder.mutation({
       query: () => ({
         url: `/users/logout`,
         method: 'POST',
       }),
-      providesTags: ['User'],
+      invalidatesTags: ['User', 'Contacts'],
     }),
     fetchCurrentUser: builder.query({
-      query: () => ({
-        url: `/users/current`,
-        method: 'GET',
-      }),
+      query: () => `/users/current`,
       providesTags: ['User'],
     }),
     getContacts: builder.query({
@@ -63,14 +60,11 @@ export const contactsApi = createApi({
       invalidatesTags: ['Contacts'],
     }),
     editContact: builder.mutation({
-      query: ([id, data]) => {
-        console.log('data', data);
-        return {
-          url: `/contacts/${id}`,
-          method: 'PATCH',
-          body: data,
-        };
-      },
+      query: ([id, data]) => ({
+        url: `/contacts/${id}`,
+        method: 'PATCH',
+        body: data,
+      }),
       invalidatesTags: ['Contacts'],
     }),
     deleteContactById: builder.mutation({

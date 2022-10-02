@@ -22,8 +22,8 @@ const LoginPage = () => {
     setSubmitting,
   } = useFormik({
     initialValues: {
-      email: '1test@test.com',
-      password: '1qaz2wsX',
+      email: '',
+      password: '',
     },
     validationSchema: Yup.object({
       email: Yup.string()
